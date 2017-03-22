@@ -5,7 +5,9 @@ export const CommonParameter = {
   'rotateYAxisLabel': { valueType: 'int', defaultValue: 0, description: 'rotate yAxis labels', },
   'dataLabel': { valueType: 'boolean', defaultValue: false, description: 'use data labels in column', widget: 'checkbox', },
   'dataLabelRotation': { valueType: 'int', defaultValue: -90, description: 'rotate data labels', },
-  'legendLabelFormat': { valueType: 'string', defaultValue: '', description: 'text format of legend (<a href="https://docs.amcharts.com/3/javascriptcharts/AmGraph#legendValueText">doc</a>)', },
+  'dataLabelPrecision': { valueType: 'string', defaultValue: '.1f', description: 'precision of data label format without <code>:</code> (<a href="http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting">doc</a>)', },
+  'tooltipPrecision': { valueType: 'string', defaultValue: '.1f', description: 'precision of tooltip format without <code>:</code> (<a href="http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting">doc</a>)', },
+  'legendLabelFormat': { valueType: 'string', defaultValue: '', description: 'text format of legend (<a href="http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting">doc</a>)', },
   'xAxisPosition': { valueType: 'string', defaultValue: 'bottom', description: 'xAxis position', widget: 'option', optionValues: [ 'bottom', 'top', ], },
   'yAxisPosition': { valueType: 'string', defaultValue: 'left', description: 'yAxis position', widget: 'option', optionValues: [ 'left', 'right', ], },
   'showLegend': { valueType: 'boolean', defaultValue: true, description: 'show legend', widget: 'checkbox', },
@@ -20,6 +22,10 @@ export const CommonParameter = {
   'yAxisName': { valueType: 'string', defaultValue: '', description: 'name of yAxis', },
 }
 
+export function getPrecisionFormat(precision, prefix) {
+  return (precision === '') ? `{${prefix}:.1f}` : `{${prefix}:${precision}}`
+}
+
 export function createColumnChartDataStructure(rows) {
   return rows.map(r => {
     return { name: r.selector, data: r.value, }
@@ -31,8 +37,8 @@ export function createColumnChartOption(data, parameter, keyNames) {
     xAxisName, yAxisName, xAxisUnit, yAxisUnit,
     xAxisPosition, yAxisPosition, legendPosition, legendLayout, rotateXAxisLabel, rotateYAxisLabel,
     zoomType, showLegend, legendLabelFormat, floatingLegend, dataLabel, dataLabelRotation,
-    mainTitle, subTitle,
-    inverted,
+    tooltipPrecision, dataLabelPrecision,
+    mainTitle, subTitle, inverted,
   } = parameter
 
   const option = {
@@ -54,7 +60,7 @@ export function createColumnChartOption(data, parameter, keyNames) {
         <span style="font-size: 10px;">Key: {point.key}</span>
           <table style="margin-top: 3px;">`,
       pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-      '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+      `<td style="padding:0"><b>${getPrecisionFormat(tooltipPrecision, 'point.y')}</b></td></tr>`,
       footerFormat: '</table>',
       shared: true,
       useHTML: true
@@ -92,13 +98,14 @@ export function createColumnChartOption(data, parameter, keyNames) {
   }
 
   if (dataLabel) {
+    const format = getPrecisionFormat(dataLabelPrecision, 'point.y')
     option.series.map(r => {
       r.dataLabels = {
         enabled: true,
         rotation: dataLabelRotation,
         color: '#FFFFFF',
         align: 'center',
-        format: '{point.y:.1f}', // one decimal
+        format: format,
         y: 10, // 10 pixels down from the top
       }
     })

@@ -2,15 +2,18 @@ import Visualization from 'zeppelin-vis'
 import AdvancedTransformation from 'zeppelin-tabledata/advanced-transformation'
 
 import Highcharts from 'highcharts/highcharts'
+require('highcharts/modules/data')(Highcharts);
+require('highcharts/modules/drilldown')(Highcharts);
 require('highcharts/modules/exporting')(Highcharts);
 
 import { CommonParameter, createColumnChartDataStructure, createColumnChartOption, } from './chart/column'
 import { StackedParameter, createStackedColumnOption, } from './chart/stacked'
 import { PercentParameter, createPercentColumnOption, } from './chart/percent'
+import { DrillDownParameter, createDrilldownDataStructure, createDrilldownColumnOption, } from './chart/drill-down'
 
 /** https://github.com/highcharts/highcharts/issues/6456#issuecomment-286757030 */
 Highcharts.wrap(Highcharts.Pointer.prototype, 'getHoverData', function (proceed, a, b, c, isDirectTouch, shared, f) {
-  var directTouch = shared ? false : directTouch;
+  const directTouch = shared ? false : directTouch;
   return proceed.apply(this, [a, b, c, directTouch, shared, f]);
 });
 
@@ -51,13 +54,13 @@ export default class Chart extends Visualization {
         },
 
         'drill-down': {
-          transform: { method: 'array', drillDown: true, },
+          transform: { method: 'drill-down', },
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
             'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
             'category': { dimension: 'multiple', axisType: 'group', },
           },
-          parameter: CommonParameter,
+          parameter: DrillDownParameter,
         }
       },
     }
@@ -96,10 +99,7 @@ export default class Chart extends Visualization {
       return /** have nothing to display, if aggregator is not specified at all */
     }
 
-    const {
-      rows, keyColumnName, keyNames,
-      selectors, selectorNameWithIndex, keyNameWithIndex,
-    } = transformer()
+    const { rows, keyNames, selectors, } = transformer()
 
     const data = createColumnChartDataStructure(rows)
     const chartOption = createColumnChartOption(data, parameter, keyNames, selectors)
@@ -113,10 +113,7 @@ export default class Chart extends Visualization {
       return /** have nothing to display, if aggregator is not specified at all */
     }
 
-    const {
-      rows, keyColumnName, keyNames,
-      selectors, selectorNameWithIndex, keyNameWithIndex,
-    } = transformer()
+    const { rows, keyNames, selectors, } = transformer()
 
     const data = createColumnChartDataStructure(rows)
     const chartOption = createStackedColumnOption(data, parameter, keyNames, selectors)
@@ -130,13 +127,24 @@ export default class Chart extends Visualization {
       return /** have nothing to display, if aggregator is not specified at all */
     }
 
-    const {
-      rows, keyColumnName, keyNames,
-      selectors, selectorNameWithIndex, keyNameWithIndex,
-    } = transformer()
+    const { rows, keyNames, selectors, } = transformer()
 
     const data = createColumnChartDataStructure(rows)
     const chartOption = createPercentColumnOption(data, parameter, keyNames, selectors)
+
+    this.chartInstance = Highcharts.chart(this.getChartElementId(), chartOption)
+  }
+
+  drawDrilldownChat(parameter, column, transformer) {
+    if (column.aggregator.length === 0) {
+      this.hideChart()
+      return /** have nothing to display, if aggregator is not specified at all */
+    }
+
+    const { rows, keyNames, selectors, } = transformer()
+
+    const { series, drillDownSeries, } = createDrilldownDataStructure(rows)
+    const chartOption = createDrilldownColumnOption(series, drillDownSeries, parameter, keyNames, selectors)
 
     this.chartInstance = Highcharts.chart(this.getChartElementId(), chartOption)
   }
@@ -151,8 +159,7 @@ export default class Chart extends Visualization {
     } else if (chart === 'percent') {
       this.drawPercentChart(parameter, column, transformer)
     } else if (chart === 'drill-down') {
-      const returned = transformer
-      console.log(transformer)
+      this.drawDrilldownChat(parameter, column, transformer)
     }
   }
 

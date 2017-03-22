@@ -1,6 +1,7 @@
 import {
   CommonParameter,
   createColumnChartOption,
+  getPrecisionFormat,
 } from './column'
 
 const p = JSON.parse(JSON.stringify(CommonParameter))
@@ -11,7 +12,7 @@ export function createStackedColumnOption(data, parameter, keyNames) {
   const option = createColumnChartOption(data, parameter, keyNames)
 
   const {
-    dataLabel,
+    dataLabel, tooltipPrecision,
   } = parameter
 
   if (dataLabel) { option.series.map(r => { r.dataLabels.align = 'center' }) }
@@ -33,7 +34,7 @@ export function createStackedColumnOption(data, parameter, keyNames) {
     pointFormat: `
         <tr>
           <th style="color: {series.color}">{series.name}: </th>
-          <td style="text-align: right">{point.y:.1f}</td>
+          <td style="text-align: right">${getPrecisionFormat(tooltipPrecision, 'point.y')}</td>
         </tr>`,
     footerFormat: '</table></tbody>',
     shared: true,

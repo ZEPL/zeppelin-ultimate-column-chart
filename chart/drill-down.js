@@ -8,6 +8,7 @@ const p = JSON.parse(JSON.stringify(CommonParameter))
 export const DrillDownParameter = p
 p.dataLabelRotation.defaultValue = 0
 p.rotateXAxisLabel.defaultValue = -45
+p.zoomType.defaultValue = 'none'
 
 export function createDrilldownColumnOption(series, drillDownSeries, parameter) {
   const option = createColumnChartOption([], parameter)

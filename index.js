@@ -25,6 +25,7 @@ export default class Chart extends Visualization {
       charts: {
         'column': {
           transform: { method: 'array', },
+          sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
             'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
@@ -35,6 +36,7 @@ export default class Chart extends Visualization {
 
         'stacked': {
           transform: { method: 'array', },
+          sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
             'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
@@ -45,6 +47,7 @@ export default class Chart extends Visualization {
 
         'percent': {
           transform: { method: 'array', },
+          sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
             'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
@@ -55,6 +58,7 @@ export default class Chart extends Visualization {
 
         'drill-down': {
           transform: { method: 'drill-down', },
+          sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
             'yAxis': { dimension: 'multiple', axisType: 'aggregator'},

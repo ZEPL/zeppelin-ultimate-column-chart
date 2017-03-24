@@ -3,19 +3,16 @@ import AdvancedTransformation from 'zeppelin-tabledata/advanced-transformation'
 
 import Highcharts from 'highcharts/highcharts'
 require('highcharts/modules/data')(Highcharts);
-require('highcharts/modules/drilldown')(Highcharts);
 require('highcharts/modules/exporting')(Highcharts);
+
+// http://stackoverflow.com/questions/42076332/uncaught-typeerror-e-dodrilldown-is-not-a-function-highcharts
+import Drilldown from 'highcharts/modules/drilldown'
+if (!Highcharts.Chart.prototype.addSeriesAsDrilldown) { Drilldown(Highcharts) }
 
 import { CommonParameter, createColumnChartDataStructure, createColumnChartOption, } from './chart/column'
 import { StackedParameter, createStackedColumnOption, } from './chart/stacked'
 import { PercentParameter, createPercentColumnOption, } from './chart/percent'
 import { DrillDownParameter, createDrilldownDataStructure, createDrilldownColumnOption, } from './chart/drill-down'
-
-/** https://github.com/highcharts/highcharts/issues/6456#issuecomment-286757030 */
-Highcharts.wrap(Highcharts.Pointer.prototype, 'getHoverData', function (proceed, a, b, c, isDirectTouch, shared, f) {
-  const directTouch = shared ? false : directTouch;
-  return proceed.apply(this, [a, b, c, directTouch, shared, f]);
-});
 
 export default class Chart extends Visualization {
   constructor(targetEl, config) {

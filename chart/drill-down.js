@@ -60,7 +60,7 @@ export function createDrilldownDataStructure(rows) {
   }
 
   const series = []
-  series.push({ colorByPoint: true, data: data, })
+  series.push({ name: '', colorByPoint: true, data: data, })
 
   return { series: series, drillDownSeries: drillDownSeries, }
 }

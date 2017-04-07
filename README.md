@@ -13,7 +13,10 @@ The Ultimate Column Chart for Apache Zeppelin using [highcharts](https://www.amc
 - [ultimate-line-chart](https://github.com/1ambda/zeppelin-ultimate-line-chart) ([amcharts](https://www.amcharts.com/))
 - [ultimate-area-chart](https://github.com/1ambda/zeppelin-ultimate-area-chart) ([amcharts](https://www.amcharts.com/))
 - **ultimate-column-chart** ([highcharts](http://www.highcharts.com/))
-- [ultimate-pie-chart](https://github.com/1ambda/zeppelin-ultimate-column-chart) ([highcharts](http://www.highcharts.com/))
+- [ultimate-pie-chart](https://github.com/1ambda/zeppelin-ultimate-pie-chart) ([highcharts](http://www.highcharts.com/))
+- [ultimate-range-chart](https://github.com/1ambda/zeppelin-ultimate-range-chart) ([highcharts](http://www.highcharts.com/))
+- [ultimate-scatter-chart](https://github.com/1ambda/zeppelin-ultimate-scatter-chart) ([highcharts](http://www.highcharts.com/))
+- [ultimate-heatmap-chart](https://github.com/1ambda/zeppelin-ultimate-heatmap-chart) ([highcharts](http://www.highcharts.com/))
 
 ## License
 

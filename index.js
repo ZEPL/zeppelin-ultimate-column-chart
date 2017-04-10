@@ -94,6 +94,16 @@ export default class Chart extends Visualization {
         </div>`
   }
 
+  showError(error) {
+    this.clearChart()
+    this.getChartElement().innerHTML = `
+        <div style="margin-top: 60px; text-align: center; font-weight: 300">
+            <span style="font-size:30px; color: #e4573c;">
+                ${error.message} 
+            </span>
+        </div>`
+  }
+
   drawColumnChart(parameter, column, transformer) {
     if (column.aggregator.length === 0) {
       this.hideChart()
@@ -158,14 +168,19 @@ export default class Chart extends Visualization {
 
     if (!chartChanged && !parameterChanged) { return }
 
-    if (chart === 'column') {
-      this.drawColumnChart(parameter, column, transformer)
-    } else if (chart === 'stacked') {
-      this.drawStackedChart(parameter, column, transformer)
-    } else if (chart === 'percent') {
-      this.drawPercentChart(parameter, column, transformer)
-    } else if (chart === 'drill-down') {
-      this.drawDrilldownChat(parameter, column, transformer)
+    try {
+      if (chart === 'column') {
+        this.drawColumnChart(parameter, column, transformer)
+      } else if (chart === 'stacked') {
+        this.drawStackedChart(parameter, column, transformer)
+      } else if (chart === 'percent') {
+        this.drawPercentChart(parameter, column, transformer)
+      } else if (chart === 'drill-down') {
+        this.drawDrilldownChat(parameter, column, transformer)
+      }
+    } catch (error) {
+      console.error(error)
+      this.showError(error)
     }
   }
 

@@ -25,7 +25,7 @@ export default class Chart extends Visualization {
           sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
-            'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
+            'yAxis': { dimension: 'multiple', axisType: 'aggregator', minAxisCount: 1, },
             'category': { dimension: 'multiple', axisType: 'group', },
           },
           parameter: CommonParameter,
@@ -36,7 +36,7 @@ export default class Chart extends Visualization {
           sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
-            'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
+            'yAxis': { dimension: 'multiple', axisType: 'aggregator', minAxisCount: 1, },
             'category': { dimension: 'multiple', axisType: 'group', },
           },
           parameter: StackedParameter,
@@ -47,7 +47,7 @@ export default class Chart extends Visualization {
           sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
-            'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
+            'yAxis': { dimension: 'multiple', axisType: 'aggregator', minAxisCount: 1, },
             'category': { dimension: 'multiple', axisType: 'group', },
           },
           parameter: PercentParameter,
@@ -58,7 +58,7 @@ export default class Chart extends Visualization {
           sharedAxis: true,
           axis: {
             'xAxis': { dimension: 'multiple', axisType: 'key', },
-            'yAxis': { dimension: 'multiple', axisType: 'aggregator'},
+            'yAxis': { dimension: 'multiple', axisType: 'aggregator', minAxisCount: 1, },
             'category': { dimension: 'multiple', axisType: 'group', },
           },
           parameter: DrillDownParameter,

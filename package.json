@@ -12,7 +12,7 @@
     "visualization",
     "ultimate"
   ],
-  "author": "1ambda",
+  "author": "ZEPL",
   "license": "SEE LICENSE IN <LICENSE>",
   "dependencies": {
     "highcharts": "^5.0.10",
@@ -25,10 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1ambda/zeppelin-ultimate-column-chart.git"
+    "url": "git+https://github.com/ZEPL/zeppelin-ultimate-column-chart.git"
   },
   "bugs": {
-    "url": "https://github.com/1ambda/zeppelin-ultimate-column-chart/issues"
+    "url": "https://github.com/ZEPL/zeppelin-ultimate-column-chart/issues"
   },
-  "homepage": "https://github.com/1ambda/zeppelin-ultimate-column-chart#readme"
+  "homepage": "https://github.com/ZEPL/zeppelin-ultimate-column-chart#readme"
 }

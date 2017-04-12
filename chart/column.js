@@ -13,7 +13,7 @@ export const CommonParameter = {
   'showLegend': { valueType: 'boolean', defaultValue: true, description: 'show legend', widget: 'checkbox', },
   'legendPosition': { valueType: 'string', defaultValue: 'bottom', description: 'position of legend', widget: 'option', optionValues: [ 'bottom', 'top', ], },
   'legendLayout': { valueType: 'string', defaultValue: 'horizontal', description: 'layout of legend', widget: 'option', optionValues: [ 'horizontal', 'vertical', ], },
-  'zoomType': { valueType: 'string', defaultValue: 'y', description: 'type of zoom', widget: 'option', optionValues: [ 'y', 'none' ], },
+  'zoomType': { valueType: 'string', defaultValue: 'x', description: 'type of zoom', widget: 'option', optionValues: [ 'y', 'x', 'xy', 'none' ], },
   'subTitle': { valueType: 'string', defaultValue: '', description: 'sub title of chart', },
   'mainTitle': { valueType: 'string', defaultValue: '', description: 'main title of chart', },
   'xAxisUnit': { valueType: 'string', defaultValue: '', description: 'unit of xAxis', },

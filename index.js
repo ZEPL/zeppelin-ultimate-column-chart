@@ -160,6 +160,14 @@ export default class Chart extends Visualization {
     this.chartInstance = Highcharts.chart(this.getChartElementId(), chartOption)
   }
 
+  refresh() {
+    try {
+      this.chartInstance.setSize(this.targetEl.width())
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+
   render(data) {
     const {
       chartChanged, parameterChanged,

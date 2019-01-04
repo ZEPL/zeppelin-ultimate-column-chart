@@ -146,7 +146,7 @@ export default class Chart extends Visualization {
     this.chartInstance = Highcharts.chart(this.getChartElementId(), chartOption)
   }
 
-  drawDrilldownChat(parameter, column, transformer) {
+  drawDrilldownChart(parameter, column, transformer) {
     if (column.aggregator.length === 0) {
       this.hideChart()
       return /** have nothing to display, if aggregator is not specified at all */
@@ -184,7 +184,7 @@ export default class Chart extends Visualization {
       } else if (chart === 'percent') {
         this.drawPercentChart(parameter, column, transformer)
       } else if (chart === 'drill-down') {
-        this.drawDrilldownChat(parameter, column, transformer)
+        this.drawDrilldownChart(parameter, column, transformer)
       }
     } catch (error) {
       console.error(error)

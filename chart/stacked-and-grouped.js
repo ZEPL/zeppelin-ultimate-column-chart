@@ -32,11 +32,7 @@ export function createStackedAndGroupedColumnOption(data, parameter, keyNames) {
     headerFormat:`
         <table class="tip">
           <caption style="margin-bottom: 3px;">Key: {point.key}</caption>
-          <tbody>
-            <tr style="margin-bottom: 3px;"><th>TOTAL: </th>
-              <td style="text-align:right" ><b>{point.total}</b>
-              </td>
-            </tr>`,
+          <tbody>`,
     pointFormat: `
         <tr>
           <th style="color: {series.color}">{series.name}: </th>

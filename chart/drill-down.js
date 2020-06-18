@@ -52,11 +52,11 @@ export function createDrilldownDataStructure(rows) {
     const row = rows[i]
     const selector = row.selector
 
-    const drillDownData = row.drillDown.map(dr => { return [ dr.group, dr.value,] })
+    const drillDownData = row.drillDown.map(dr => { return [ dr.group, parseFloat(dr.value),] })
     drillDownSeries.push({ name: selector, id: selector, data: drillDownData, })
 
     const useDrillDown = (row.drillDown && row.drillDown.length > 0)
-    data.push({ name: selector, y: row.value, drilldown: (useDrillDown) ? selector : null, })
+    data.push({ name: selector, y: parseFloat(row.value), drilldown: (useDrillDown) ? selector : null, })
   }
 
   const series = []
